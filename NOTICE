@@ -1,0 +1,30 @@
+kiosko-plugin-electricity
+Copyright (c) 2026 Loksly. MIT licence (see LICENSE).
+
+Data source (the PVPC provider, the only one today): Red Eléctrica de
+España, S.A.U. (REE), part of Redeia.
+
+The electricity prices this plugin shows (PVPC 2.0TD, indicator 1001) are
+published by Red Eléctrica de España through its REData API
+(https://apidatos.ree.es) and, optionally, its ESIOS system
+(https://api.esios.ree.es). They belong to REE and are not covered by this
+plugin's licence.
+
+REE's legal notice (https://www.ree.es/es/aviso-legal) allows their use for
+informative, non-commercial purposes provided that the user:
+  I.   names Red Eléctrica clearly and explicitly as the source of the data;
+  II.  does not alter or distort the meaning of the data;
+  III. gives the date of the data's last update;
+  IV.  does not use REE's logos, trademarks or distinctive signs.
+
+This plugin does so: its widgets show "Red Eléctrica" with the date and time
+of REE's last update ("Red Eléctrica · 24 nov 20:46") wherever there is room,
+its alerts name "REE" as their source, prices are shown as published (only
+converted from €/MWh to €/kWh), and no REE logo is used.
+
+The test fixtures in src/fixtures are answers of the REData and ESIOS APIs
+saved on 24 November 2026, kept to test the parser; the demo data in
+src/demo.ts reuses two of those days' hourly prices.
+
+Kiosko and this plugin are not affiliated with, nor endorsed by, Red
+Eléctrica de España.

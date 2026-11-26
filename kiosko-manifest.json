@@ -1,0 +1,602 @@
+{
+  "manifest": 1,
+  "id": "electricity",
+  "package": "kiosko-plugin-electricity",
+  "name": {
+    "en": "Electricity price by the hour",
+    "es": "Precio de la luz por horas",
+    "de": "Strompreis nach Stunden",
+    "zh-Hans": "逐小时电价",
+    "zh-Hant": "逐小時電價"
+  },
+  "version": "0.1.0",
+  "description": {
+    "en": "The electricity price by the hour on the panel: the price now, green, grey or amber against the rest of the day, the day's bars with tomorrow's once published, and the cheapest hours to run the washing machine. Today for Spain's regulated tariff (PVPC), from Red Eléctrica, no key needed.",
+    "es": "El precio de la luz por horas en el panel: el de ahora, en verde, gris o ámbar frente al resto del día, las barras del día con las de mañana en cuanto se publican, y las horas más baratas para poner la lavadora. Hoy para la tarifa regulada de España (PVPC), de Red Eléctrica, sin clave.",
+    "de": "Der Strompreis nach Stunden auf dem Panel: der Preis jetzt, grün, grau oder gelb im Vergleich zum Rest des Tages, die Balken des Tages mit denen von morgen, sobald veröffentlicht, und die günstigsten Stunden für die Waschmaschine. Derzeit für Spaniens regulierten Tarif (PVPC), von Red Eléctrica, ohne Schlüssel.",
+    "zh-Hans": "在副屏上查看逐小时电价：当前电价，与当天其他时段相比以绿色、灰色或琥珀色显示；当天的柱状图，明天的电价公布后一并显示；以及开洗衣机最便宜的时段。目前支持西班牙受监管电价（PVPC），数据来自 Red Eléctrica，无需密钥。",
+    "zh-Hant": "在面板上查看逐小時電價：目前電價，與當天其他時段相比以綠色、灰色或琥珀色顯示；當天的長條圖，明天的電價公布後一併顯示；以及開洗衣機最便宜的時段。目前支援西班牙受管制電價（PVPC），資料來自 Red Eléctrica，無需金鑰。"
+  },
+  "author": "Loksly",
+  "license": "MIT",
+  "homepage": "https://github.com/kiosko-lcd/kiosko-plugin-electricity#readme",
+  "repository": "https://github.com/kiosko-lcd/kiosko-plugin-electricity",
+  "icon": "plug-zap",
+  "sdk": "^0.2.0",
+  "platforms": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "languages": [
+    "en",
+    "es",
+    "de",
+    "zh-Hant",
+    "zh-Hans"
+  ],
+  "categories": [
+    "info"
+  ],
+  "tags": [
+    "electricity",
+    "energy",
+    "prices",
+    "pvpc",
+    "luz"
+  ],
+  "permissions": {
+    "network": [
+      "apidatos.ree.es",
+      "api.esios.ree.es"
+    ]
+  },
+  "riskyOptions": [
+    {
+      "path": "electricity/prices: esiosToken",
+      "risk": [],
+      "secret": true
+    }
+  ],
+  "requires": [],
+  "optional": [],
+  "widgets": [
+    {
+      "type": "electricity/now",
+      "name": {
+        "en": "Electricity price now",
+        "es": "Precio de la luz ahora",
+        "de": "Strompreis jetzt",
+        "zh-Hans": "当前电价",
+        "zh-Hant": "目前電價"
+      },
+      "description": {
+        "en": "This hour's electricity price, big, in green, grey or amber as it ranks among today's hours (cheapest third, middle, dearest third), and when the next cheap stretch starts.",
+        "es": "El precio de la luz de esta hora, grande, en verde, gris o ámbar según dónde quede entre las horas de hoy (el tercio más barato, el del medio, el más caro), y cuándo empieza el próximo tramo barato.",
+        "de": "Der Strompreis dieser Stunde, groß, in Grün, Grau oder Gelb, je nachdem, wo er unter den Stunden des Tages liegt (günstigstes, mittleres, teuerstes Drittel), und wann der nächste günstige Abschnitt beginnt.",
+        "zh-Hans": "这一小时的电价，大字显示，按在今天各小时中的排位以绿色、灰色或琥珀色标示（最便宜的三分之一、中间、最贵的三分之一），并显示下一个便宜时段何时开始。",
+        "zh-Hant": "這一小時的電價，大字顯示，依在今天各小時中的排位以綠色、灰色或琥珀色標示（最便宜的三分之一、中間、最貴的三分之一），並顯示下一個便宜時段何時開始。"
+      },
+      "icon": "zap",
+      "category": "info",
+      "tags": [
+        "electricity",
+        "energy",
+        "prices",
+        "pvpc",
+        "luz"
+      ],
+      "size": {
+        "min": {
+          "w": 120,
+          "h": 30
+        },
+        "preferred": {
+          "w": 320,
+          "h": 200
+        }
+      },
+      "chrome": "card",
+      "sources": [
+        "electricity/prices"
+      ],
+      "options": {
+        "default": {
+          "showNext": true
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "showNext": {
+            "title": "Show the next cheap stretch",
+            "default": true,
+            "x-ui": {
+              "label": {
+                "en": "Show the next cheap stretch",
+                "es": "Mostrar el próximo tramo barato",
+                "de": "Nächsten günstigen Abschnitt zeigen",
+                "zh-Hans": "显示下一个便宜时段",
+                "zh-Hant": "顯示下一個便宜時段"
+              }
+            },
+            "type": "boolean"
+          }
+        }
+      },
+      "screenshot": "docs/now.png",
+      "animated": false,
+      "urgent": false
+    },
+    {
+      "type": "electricity/chart",
+      "name": {
+        "en": "Electricity prices by hour",
+        "es": "Precio de la luz por horas",
+        "de": "Strompreise nach Stunden",
+        "zh-Hans": "逐小时电价",
+        "zh-Hant": "逐小時電價"
+      },
+      "description": {
+        "en": "Today's electricity prices hour by hour, as bars in green, grey or amber, the hour now marked, and tomorrow's beside them once published (for the PVPC, about 20:15). In a tall narrow tile, one row per hour from now on.",
+        "es": "El precio de la luz de hoy hora a hora, en barras verdes, grises o ámbar, con la hora actual marcada, y el de mañana al lado en cuanto se publica (el PVPC, hacia las 20:15). En una tesela alta y estrecha, una fila por hora a partir de ahora.",
+        "de": "Die Strompreise von heute Stunde für Stunde, als Balken in Grün, Grau oder Gelb, die aktuelle Stunde markiert, und die von morgen daneben, sobald veröffentlicht (beim PVPC gegen 20:15). In einer hohen, schmalen Kachel eine Zeile pro Stunde ab jetzt.",
+        "zh-Hans": "今天逐小时的电价柱状图，以绿色、灰色或琥珀色显示，标出当前小时；明天的电价公布后（PVPC 约 20:15）一并显示。在高而窄的格子里，从现在起每小时一行。",
+        "zh-Hant": "今天逐小時的電價長條圖，以綠色、灰色或琥珀色顯示，標出目前小時；明天的電價公布後（PVPC 約 20:15）一併顯示。在高而窄的方格裡，從現在起每小時一列。"
+      },
+      "icon": "chart-column",
+      "category": "info",
+      "tags": [
+        "electricity",
+        "energy",
+        "prices",
+        "pvpc",
+        "luz"
+      ],
+      "size": {
+        "min": {
+          "w": 140,
+          "h": 40
+        },
+        "preferred": {
+          "w": 480,
+          "h": 200
+        }
+      },
+      "chrome": "card",
+      "sources": [
+        "electricity/prices"
+      ],
+      "options": {
+        "default": {
+          "span": "auto"
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "span": {
+            "title": "Hours shown",
+            "description": "Automatic: today, and once tomorrow is published, today and tomorrow (the next 24 hours in a narrow tile).",
+            "default": "auto",
+            "x-ui": {
+              "label": {
+                "en": "Hours shown",
+                "es": "Horas que se ven",
+                "de": "Gezeigte Stunden",
+                "zh-Hans": "显示的时段",
+                "zh-Hant": "顯示的時段"
+              },
+              "help": {
+                "en": "Automatic: today, and once tomorrow is published, today and tomorrow (the next 24 hours in a narrow tile).",
+                "es": "Automático: hoy y, cuando se publique mañana, hoy y mañana (las próximas 24 horas en una tesela estrecha).",
+                "de": "Automatisch: heute und, sobald morgen veröffentlicht ist, heute und morgen (die nächsten 24 Stunden in einer schmalen Kachel).",
+                "zh-Hans": "自动：今天；明天的电价公布后显示今天和明天（窄格子里显示接下来 24 小时）。",
+                "zh-Hant": "自動：今天；明天的電價公布後顯示今天和明天（窄方格裡顯示接下來 24 小時）。"
+              },
+              "labels": {
+                "auto": {
+                  "en": "Automatic",
+                  "es": "Automático",
+                  "de": "Automatisch",
+                  "zh-Hans": "自动",
+                  "zh-Hant": "自動"
+                },
+                "today": {
+                  "en": "Today",
+                  "es": "Hoy",
+                  "de": "Heute",
+                  "zh-Hans": "今天",
+                  "zh-Hant": "今天"
+                },
+                "both": {
+                  "en": "Today and tomorrow",
+                  "es": "Hoy y mañana",
+                  "de": "Heute und morgen",
+                  "zh-Hans": "今天和明天",
+                  "zh-Hant": "今天和明天"
+                },
+                "next24": {
+                  "en": "Next 24 hours",
+                  "es": "Próximas 24 horas",
+                  "de": "Nächste 24 Stunden",
+                  "zh-Hans": "接下来 24 小时",
+                  "zh-Hant": "接下來 24 小時"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "auto",
+              "today",
+              "both",
+              "next24"
+            ]
+          }
+        }
+      },
+      "screenshot": "docs/chart.png",
+      "animated": false,
+      "urgent": false
+    },
+    {
+      "type": "electricity/windows",
+      "name": {
+        "en": "Cheapest hours",
+        "es": "Horas más baratas",
+        "de": "Günstigste Stunden",
+        "zh-Hans": "最便宜时段",
+        "zh-Hant": "最便宜時段"
+      },
+      "description": {
+        "en": "When to run the washing machine or the dishwasher: the cheapest runs of 1 to 4 hours in a row from now on, tomorrow too once published, with their average price and how much cheaper than now.",
+        "es": "Cuándo poner la lavadora o el lavavajillas: los tramos de 1 a 4 horas seguidas más baratos de aquí en adelante, también los de mañana cuando se publiquen, con su precio medio y cuánto más barato que ahora.",
+        "de": "Wann die Waschmaschine oder die Spülmaschine laufen soll: die günstigsten Abschnitte von 1 bis 4 Stunden am Stück ab jetzt, auch morgen, sobald veröffentlicht, mit Durchschnittspreis und um wie viel günstiger als jetzt.",
+        "zh-Hans": "什么时候开洗衣机或洗碗机：从现在起连续 1 到 4 小时最便宜的时段，明天的电价公布后也包括在内，显示平均价格以及比现在便宜多少。",
+        "zh-Hant": "什麼時候開洗衣機或洗碗機：從現在起連續 1 到 4 小時最便宜的時段，明天的電價公布後也包括在內，顯示平均價格以及比現在便宜多少。"
+      },
+      "icon": "washing-machine",
+      "category": "info",
+      "tags": [
+        "electricity",
+        "energy",
+        "prices",
+        "pvpc",
+        "luz"
+      ],
+      "size": {
+        "min": {
+          "w": 140,
+          "h": 30
+        },
+        "preferred": {
+          "w": 320,
+          "h": 200
+        }
+      },
+      "chrome": "card",
+      "sources": [
+        "electricity/prices"
+      ],
+      "options": {
+        "default": {
+          "durationMs": 7200000,
+          "rows": 3,
+          "label": ""
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "durationMs": {
+            "title": "How long",
+            "description": "How long the appliance runs, 1 to 4 hours.",
+            "default": 7200000,
+            "x-ui": {
+              "label": {
+                "en": "How long",
+                "es": "Duración",
+                "de": "Dauer",
+                "zh-Hans": "时长",
+                "zh-Hant": "時長"
+              },
+              "help": {
+                "en": "How long the appliance runs, 1 to 4 hours.",
+                "es": "Lo que dura el programa del electrodoméstico, de 1 a 4 horas.",
+                "de": "Wie lange das Gerät läuft, 1 bis 4 Stunden.",
+                "zh-Hans": "电器运行的时长，1 到 4 小时。",
+                "zh-Hant": "電器運轉的時長，1 到 4 小時。"
+              },
+              "unit": "ms"
+            },
+            "type": "integer",
+            "minimum": 3600000,
+            "maximum": 14400000
+          },
+          "rows": {
+            "title": "Rows",
+            "description": "0 = as many as fit. A number shows that many, in rows of a readable size (fewer when the tile is too small for them); the rest are counted in \"+N more\".",
+            "default": 3,
+            "x-ui": {
+              "label": {
+                "en": "Rows",
+                "es": "Filas",
+                "de": "Zeilen",
+                "zh-Hant": "列數",
+                "zh-Hans": "行数"
+              },
+              "help": {
+                "en": "0 = as many as fit. A number shows that many, in rows of a readable size (fewer when the tile is too small for them); the rest are counted in \"+N more\".",
+                "es": "0 = las que quepan. Con un número se ven esas, en filas de un tamaño legible (menos si la tesela no da para ellas); el resto se cuenta en «+N más».",
+                "de": "0 = so viele, wie passen. Eine Zahl zeigt so viele, in Zeilen lesbarer Größe (weniger, wenn die Kachel dafür zu klein ist); der Rest wird als „+N weitere“ gezählt.",
+                "zh-Hant": "0 = 盡量放滿。填數字則顯示該數量，並以易讀的大小排列（方格太小時會減少）；其餘的計入「還有 N 個」。",
+                "zh-Hans": "0 = 尽量放满。填数字则显示该数量，并以易读的大小排列（格子太小时会减少）；其余的计入“还有 N 个”。"
+              }
+            },
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 30
+          },
+          "label": {
+            "title": "Name",
+            "description": "Above the list, e.g. \"Washing machine\". Empty: \"Cheapest 2 h\".",
+            "default": "",
+            "x-ui": {
+              "label": {
+                "en": "Name",
+                "es": "Nombre",
+                "de": "Name",
+                "zh-Hans": "名称",
+                "zh-Hant": "名稱"
+              },
+              "help": {
+                "en": "Above the list, e.g. \"Washing machine\". Empty: \"Cheapest 2 h\".",
+                "es": "Encima de la lista, p. ej. «Lavadora». Vacío: «Las 2 h más baratas».",
+                "de": "Über der Liste, z. B. „Waschmaschine“. Leer: „Günstigste 2 h“.",
+                "zh-Hans": "显示在列表上方，例如“洗衣机”。留空：“最便宜的 2 小时”。",
+                "zh-Hant": "顯示在清單上方，例如「洗衣機」。留空：「最便宜的 2 小時」。"
+              },
+              "placeholder": "Lavadora"
+            },
+            "type": "string",
+            "maxLength": 40
+          }
+        }
+      },
+      "screenshot": "docs/windows.png",
+      "animated": false,
+      "urgent": false
+    }
+  ],
+  "sources": [
+    {
+      "type": "electricity/prices",
+      "name": {
+        "en": "Electricity prices",
+        "es": "Precio de la luz",
+        "de": "Strompreise",
+        "zh-Hans": "电价",
+        "zh-Hant": "電價"
+      },
+      "description": {
+        "en": "Today's and tomorrow's electricity prices, hour by hour. Today: Spain's regulated tariff (PVPC 2.0TD), from Red Eléctrica's public data (REData, no key), tomorrow's from about 20:15. Kept on disk: the provider is asked only for what is missing.",
+        "es": "El precio de la luz de hoy y de mañana, hora a hora. Hoy: la tarifa regulada de España (PVPC 2.0TD), de los datos públicos de Red Eléctrica (REData, sin clave), la de mañana desde las 20:15 más o menos. Se guarda en disco: solo se pide lo que falta.",
+        "de": "Die Strompreise von heute und morgen, Stunde für Stunde. Derzeit: Spaniens regulierter Tarif (PVPC 2.0TD) aus den offenen Daten von Red Eléctrica (REData, ohne Schlüssel), der von morgen ab etwa 20:15. Auf der Platte gespeichert: Es wird nur nach Fehlendem gefragt.",
+        "zh-Hans": "今天和明天的逐小时电价。目前支持：西班牙受监管电价（PVPC 2.0TD），来自 Red Eléctrica 的公开数据（REData，无需密钥），明天的电价约 20:15 公布。保存在磁盘上，只请求缺少的部分。",
+        "zh-Hant": "今天和明天的逐小時電價。目前支援：西班牙受管制電價（PVPC 2.0TD），來自 Red Eléctrica 的公開資料（REData，無需金鑰），明天的電價約 20:15 公布。儲存在磁碟上，只請求缺少的部分。"
+      },
+      "polled": true,
+      "intervalMs": 300000,
+      "options": {
+        "default": {
+          "provider": "pvpc",
+          "geo": "peninsula",
+          "alertCheapest": false,
+          "alertDurationMs": 7200000,
+          "alertAbove": 0,
+          "esiosToken": ""
+        },
+        "x-ui": {},
+        "type": "object",
+        "properties": {
+          "provider": {
+            "title": "Prices",
+            "description": "Whose hourly prices. Today: Spain's regulated tariff (PVPC), from Red Eléctrica.",
+            "default": "pvpc",
+            "x-ui": {
+              "label": {
+                "en": "Prices",
+                "es": "Precios",
+                "de": "Preise",
+                "zh-Hans": "电价来源",
+                "zh-Hant": "電價來源"
+              },
+              "help": {
+                "en": "Whose hourly prices. Today: Spain's regulated tariff (PVPC), from Red Eléctrica.",
+                "es": "De dónde salen los precios por horas. Hoy: la tarifa regulada de España (PVPC), de Red Eléctrica.",
+                "de": "Wessen Stundenpreise. Derzeit: Spaniens regulierter Tarif (PVPC), von Red Eléctrica.",
+                "zh-Hans": "逐小时电价的来源。目前支持：西班牙受监管电价（PVPC），来自 Red Eléctrica。",
+                "zh-Hant": "逐小時電價的來源。目前支援：西班牙受管制電價（PVPC），來自 Red Eléctrica。"
+              },
+              "labels": {
+                "pvpc": {
+                  "en": "Spain – PVPC (Red Eléctrica)",
+                  "es": "España – PVPC (Red Eléctrica)",
+                  "de": "Spanien – PVPC (Red Eléctrica)",
+                  "zh-Hans": "西班牙 – PVPC（Red Eléctrica）",
+                  "zh-Hant": "西班牙 – PVPC（Red Eléctrica）"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "pvpc"
+            ]
+          },
+          "geo": {
+            "title": "Territory (PVPC)",
+            "description": "The PVPC is the same price for every territory today, but REE publishes one per territory. Times are shown on its clock (the Canary Islands, an hour behind).",
+            "default": "peninsula",
+            "x-ui": {
+              "label": {
+                "en": "Territory (PVPC)",
+                "es": "Territorio (PVPC)",
+                "de": "Gebiet (PVPC)",
+                "zh-Hans": "地区（PVPC）",
+                "zh-Hant": "地區（PVPC）"
+              },
+              "help": {
+                "en": "The PVPC is the same price for every territory today, but REE publishes one per territory. Times are shown on its clock (the Canary Islands, an hour behind).",
+                "es": "Hoy el PVPC es el mismo en todos los territorios, pero REE publica uno por territorio. Las horas se muestran en su reloj (Canarias, una hora menos).",
+                "de": "Der PVPC ist heute überall gleich, aber REE veröffentlicht ihn je Gebiet. Die Uhrzeiten gelten in dessen Zeitzone (die Kanaren eine Stunde zurück).",
+                "zh-Hans": "目前各地区的 PVPC 价格相同，但 REE 按地区分别公布。时间按当地时钟显示（加那利群岛晚一小时）。",
+                "zh-Hant": "目前各地區的 PVPC 價格相同，但 REE 按地區分別公布。時間按當地時鐘顯示（加那利群島晚一小時）。"
+              },
+              "labels": {
+                "peninsula": {
+                  "en": "Península (mainland Spain)",
+                  "es": "Península",
+                  "de": "Festland (Península)",
+                  "zh-Hans": "西班牙本土",
+                  "zh-Hant": "西班牙本土"
+                },
+                "canarias": {
+                  "en": "Canary Islands",
+                  "es": "Canarias",
+                  "de": "Kanaren",
+                  "zh-Hans": "加那利群岛",
+                  "zh-Hant": "加那利群島"
+                },
+                "baleares": {
+                  "en": "Balearic Islands",
+                  "es": "Baleares",
+                  "de": "Balearen",
+                  "zh-Hans": "巴利阿里群岛",
+                  "zh-Hant": "巴利阿里群島"
+                },
+                "ceuta": {
+                  "en": "Ceuta",
+                  "es": "Ceuta",
+                  "de": "Ceuta",
+                  "zh-Hans": "休达",
+                  "zh-Hant": "休達"
+                },
+                "melilla": {
+                  "en": "Melilla",
+                  "es": "Melilla",
+                  "de": "Melilla",
+                  "zh-Hans": "梅利利亚",
+                  "zh-Hant": "梅利利亞"
+                }
+              }
+            },
+            "type": "string",
+            "enum": [
+              "peninsula",
+              "canarias",
+              "baleares",
+              "ceuta",
+              "melilla"
+            ]
+          },
+          "alertCheapest": {
+            "title": "Alert when the cheapest hours start",
+            "description": "A full-screen notice, once a day, when the cheapest run of the day (of the length below) starts.",
+            "default": false,
+            "x-ui": {
+              "label": {
+                "en": "Alert when the cheapest hours start",
+                "es": "Avisar cuando empiecen las horas más baratas",
+                "de": "Warnen, wenn die günstigsten Stunden beginnen",
+                "zh-Hans": "最便宜时段开始时提醒",
+                "zh-Hant": "最便宜時段開始時提醒"
+              },
+              "help": {
+                "en": "A full-screen notice, once a day, when the cheapest run of the day (of the length below) starts.",
+                "es": "Un aviso a pantalla completa, una vez al día, cuando empiece el tramo más barato del día (de la duración de abajo).",
+                "de": "Ein Vollbild-Hinweis, einmal am Tag, wenn der günstigste Abschnitt des Tages (mit der Dauer unten) beginnt.",
+                "zh-Hans": "每天一次全屏提醒：当天最便宜的连续时段（时长见下方）开始时。",
+                "zh-Hant": "每天一次全螢幕提醒：當天最便宜的連續時段（時長見下方）開始時。"
+              }
+            },
+            "type": "boolean"
+          },
+          "alertDurationMs": {
+            "title": "Length of the cheapest run",
+            "default": 7200000,
+            "x-ui": {
+              "label": {
+                "en": "Length of the cheapest run",
+                "es": "Duración del tramo más barato",
+                "de": "Dauer des günstigsten Abschnitts",
+                "zh-Hans": "最便宜时段的时长",
+                "zh-Hant": "最便宜時段的時長"
+              },
+              "unit": "ms"
+            },
+            "type": "integer",
+            "minimum": 3600000,
+            "maximum": 14400000
+          },
+          "alertAbove": {
+            "title": "Alert over this price",
+            "description": "€/kWh, e.g. 0.25: a full-screen notice when the price goes over it, once each time. 0: off.",
+            "default": 0,
+            "x-ui": {
+              "label": {
+                "en": "Alert over this price",
+                "es": "Avisar por encima de este precio",
+                "de": "Warnen über diesem Preis",
+                "zh-Hans": "高于此价格时提醒",
+                "zh-Hant": "高於此價格時提醒"
+              },
+              "help": {
+                "en": "€/kWh, e.g. 0.25: a full-screen notice when the price goes over it, once each time. 0: off.",
+                "es": "€/kWh, p. ej. 0,25: un aviso a pantalla completa cuando el precio lo supere, una vez cada vez. 0: desactivado.",
+                "de": "€/kWh, z. B. 0,25: ein Vollbild-Hinweis, wenn der Preis darüber steigt, einmal pro Mal. 0: aus.",
+                "zh-Hans": "单位 €/kWh，例如 0.25：电价超过时全屏提醒，每次一次。0：关闭。",
+                "zh-Hant": "單位 €/kWh，例如 0.25：電價超過時全螢幕提醒，每次一次。0：關閉。"
+              },
+              "unit": "€/kWh"
+            },
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "esiosToken": {
+            "title": "ESIOS token (PVPC, optional)",
+            "description": "Only if REData fails often: REE's ESIOS is asked instead. Ask for a free token by email to consultasios@ree.es. Secret: leave it empty (or a placeholder such as \"<token>\"). Kiosko keeps the value it already has, or asks for it in the editor.",
+            "default": "",
+            "x-ui": {
+              "label": {
+                "en": "ESIOS token (PVPC, optional)",
+                "es": "Token de ESIOS (PVPC, opcional)",
+                "de": "ESIOS-Token (PVPC, optional)",
+                "zh-Hans": "ESIOS 令牌（PVPC，可选）",
+                "zh-Hant": "ESIOS 權杖（PVPC，選填）"
+              },
+              "help": {
+                "en": "Only if REData fails often: REE's ESIOS is asked instead. Ask for a free token by email to consultasios@ree.es.",
+                "es": "Solo si REData falla a menudo: se pregunta a ESIOS de REE en su lugar. El token es gratuito, se pide por correo a consultasios@ree.es.",
+                "de": "Nur wenn REData oft ausfällt: Dann wird ESIOS von REE gefragt. Den kostenlosen Token per E-Mail an consultasios@ree.es anfordern.",
+                "zh-Hans": "仅在 REData 经常失败时使用：改为查询 REE 的 ESIOS。免费令牌可发邮件至 consultasios@ree.es 申请。",
+                "zh-Hant": "僅在 REData 經常失敗時使用：改為查詢 REE 的 ESIOS。免費權杖可寄信至 consultasios@ree.es 申請。"
+              },
+              "advanced": true,
+              "secret": true
+            },
+            "x-secret": true,
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "interludes": [],
+  "templates": [],
+  "support": {
+    "issues": "https://github.com/kiosko-lcd/kiosko-plugin-electricity/issues",
+    "docs": "https://github.com/kiosko-lcd/kiosko-plugin-electricity#readme"
+  },
+  "resources": {
+    "memoryMb": 10,
+    "cpu": "low"
+  }
+}
