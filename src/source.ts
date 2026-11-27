@@ -15,7 +15,7 @@ import type { ProviderOptions } from './providers/provider.ts';
 import { GEOS } from './providers/pvpc/geo.ts';
 import type { PriceData } from './types.ts';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 
 export const sourceOptions = t.object({
   provider: t.enum(PROVIDER_IDS, {

@@ -256,6 +256,11 @@ export const now = defineWidget({
     showNext: t.boolean({ default: true, label: L('Show the next cheap stretch', 'Mostrar el próximo tramo barato', 'Nächsten günstigen Abschnitt zeigen', '显示下一个便宜时段', '顯示下一個便宜時段') }),
   }),
   redraw: 'minute',
+  /** No price for this moment (the prices kept are of another day): the "no prices for today" message. */
+  empty: ({ sources, now: at }) => {
+    const d = dataOf(sources);
+    return !!d && !slotAt(d.slots, at);
+  },
   render(g, ctx) {
     clipped(g, ctx, () => render(g, ctx));
   },

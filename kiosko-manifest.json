@@ -9,7 +9,7 @@
     "zh-Hans": "逐小时电价",
     "zh-Hant": "逐小時電價"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": {
     "en": "The electricity price by the hour on the panel: the price now, green, grey or amber against the rest of the day, the day's bars with tomorrow's once published, and the cheapest hours to run the washing machine. Today for Spain's regulated tariff (PVPC), from Red Eléctrica, no key needed.",
     "es": "El precio de la luz por horas en el panel: el de ahora, en verde, gris o ámbar frente al resto del día, las barras del día con las de mañana en cuanto se publican, y las horas más baratas para poner la lavadora. Hoy para la tarifa regulada de España (PVPC), de Red Eléctrica, sin clave.",
