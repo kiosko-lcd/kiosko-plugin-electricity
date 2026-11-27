@@ -113,3 +113,22 @@ test('before any data: a waiting message', () => {
     assert.deepEqual(r.texts, ['Reading prices…']);
   }
 });
+
+test('empty: no price for now or today (kept prices of another day), no window left; real prices and loading are not', () => {
+  const st = (d: PriceData | undefined, t: number, options: Record<string, unknown> = { durationMs: 2 * 3_600_000 }) => ({ options, data: undefined, sources: { [SOURCE]: d }, now: t, working: true }) as never;
+  const d = real();
+  const old: PriceData = { ...d, slots: d.slots.filter((s) => s.start < at('2026-11-24T00:00:00+01:00') + 86_400_000), stale: true };
+  const twoDaysOn = EVENING + 2 * 86_400_000;
+  for (const w of WIDGETS) {
+    assert.equal(w.empty!(st(d, EVENING)), false, `${w.id} real prices`);
+    assert.equal(w.empty!(st(d, MORNING)), false, `${w.id} real prices in the morning`);
+    assert.equal(w.empty!(st(undefined, EVENING)), false, `${w.id} loading`);
+    assert.equal(w.empty!(st(old, twoDaysOn)), true, `${w.id} prices of another day`);
+  }
+  // Late evening, tomorrow not out: now and the chart still have today's prices, no 3 h window is left.
+  const late = at('2026-11-24T22:30:00+01:00');
+  const today = { ...d, slots: d.slots.filter((s) => s.start < at('2026-11-25T00:00:00+01:00')) };
+  assert.equal(windows.empty!(st(today, late, { durationMs: 3 * 3_600_000 })), true);
+  assert.equal(now.empty!(st(today, late)), false);
+  assert.equal(chart.empty!(st(today, late)), false);
+});

@@ -265,6 +265,11 @@ export const chart = defineWidget({
     }),
   }),
   redraw: 'minute',
+  /** No price for today (the prices kept are of another day). */
+  empty: ({ sources, now: at }) => {
+    const d = dataOf(sources);
+    return !!d && !daySlots(d.slots, localDate(at, d.zone), d.zone).length;
+  },
   render(g, ctx) {
     clipped(g, ctx, () => render(g, ctx));
   },

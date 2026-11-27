@@ -164,6 +164,11 @@ export const windows = defineWidget({
     }),
   }),
   redraw: 'minute',
+  /** No run of that length left in the prices known: "No window left" until tomorrow's are out. */
+  empty: ({ sources, options, now: at }) => {
+    const d = dataOf(sources);
+    return !!d && !cheapestWindows(d.slots, runMinutes(options.durationMs), at, 1).length;
+  },
   render(g, ctx) {
     clipped(g, ctx, () => render(g, ctx));
   },

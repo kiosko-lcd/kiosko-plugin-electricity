@@ -1,6 +1,6 @@
 {
   "name": "kiosko-plugin-electricity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The electricity price by the hour on a small USB LCD panel: the price now against the rest of the day, the day's bars with tomorrow's, and the cheapest hours to run the washing machine. Today for Spain's PVPC, from Red Eléctrica, no key needed.",
   "type": "module",
   "license": "MIT",
